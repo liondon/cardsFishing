@@ -12,52 +12,6 @@ const Symbols = [
   'https://image.flaticon.com/icons/svg/105/105219.svg' // 梅花
 ]
 const view = {
-  showGameFinished() {
-    const div = document.createElement('div')
-    div.classList.add('completed')
-    div.innerHTML = `
-      <p>Complete!</p>
-      <p>Score: ${model.score}</p>
-      <p>You've tried: ${model.triedTimes} times</p>
-    `
-    const header = document.querySelector('#header')
-    header.before(div)
-  },
-  appendWrongAnimation(...cards) {
-    cards.map(card => {
-      card.classList.add('wrong')
-      card.addEventListener('animationed', event => {
-        EventTarget.target.classList.removw('wrong'), { once: true }
-      })
-      /* 最後的 {once: true} 是要求在事件執行一次之後，就要卸載這個監聽器。因為同一張卡片可能會被點錯好幾次，每一次都需要動態地掛上一個新的監聽器，並且用完就要卸載。 */
-    })
-  },
-  renderScore(score) {
-    document.querySelector('.score').textContent = `Score: ${score}`
-  },
-  renderTriedTimes(triedTimes) {
-    document.querySelector('.tried').textContent = `You've tried: ${triedTimes} times`
-  },
-  flipCards(...cards) {
-    cards.map(card => {
-      if (card.classList.contains('back')) {
-        card.classList.remove('back')
-        card.innerHTML = this.getCardContent(Number(card.dataset.index))
-        return
-      }
-      card.classList.add('back')
-      card.innerHTML = null
-    })
-  },
-  displayCards(indices) {
-    const rootElement = document.querySelector('#cards')
-    rootElement.innerHTML = indices.map(index => this.getCardElement(index)).join('');
-  },
-  pairCards(...cards) {
-    cards.map(card => {
-      card.classList.add('paired')
-    })
-  },
   getCardElement(index) {
     return `<div class="card back" data-index="${index}"></div>`
   },
@@ -84,6 +38,52 @@ const view = {
         return number
     }
   }
+  displayCards(indices) {
+    const rootElement = document.querySelector('#cards')
+    rootElement.innerHTML = indices.map(index => this.getCardElement(index)).join('');
+  },
+  flipCards(...cards) {
+    cards.map(card => {
+      if (card.classList.contains('back')) {
+        card.classList.remove('back')
+        card.innerHTML = this.getCardContent(Number(card.dataset.index))
+        return
+      }
+      card.classList.add('back')
+      card.innerHTML = null
+    })
+  },
+  pairCards(...cards) {
+    cards.map(card => {
+      card.classList.add('paired')
+    })
+  },
+  renderScore(score) {
+    document.querySelector('.score').textContent = `Score: ${score}`
+  },
+  renderTriedTimes(triedTimes) {
+    document.querySelector('.tried').textContent = `You've tried: ${triedTimes} times`
+  },
+  appendWrongAnimation(...cards) {
+    cards.map(card => {
+      card.classList.add('wrong')
+      card.addEventListener('animationend', event => {
+        event.target.classList.remove('wrong'), { once: true }
+      })
+      /* 最後的 {once: true} 是要求在事件執行一次之後，就要卸載這個監聽器。因為同一張卡片可能會被點錯好幾次，每一次都需要動態地掛上一個新的監聽器，並且用完就要卸載。 */
+    })
+  },
+  showGameFinished() {
+    const div = document.createElement('div')
+    div.classList.add('completed')
+    div.innerHTML = `
+      <p>Complete!</p>
+      <p>Score: ${model.score}</p>
+      <p>You've tried: ${model.triedTimes} times</p>
+    `
+    const header = document.querySelector('#header')
+    header.before(div)
+  },
 }
 const model = {
   score: 0,
