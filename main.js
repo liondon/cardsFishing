@@ -37,7 +37,7 @@ const view = {
       default:
         return number
     }
-  }
+  },
   displayCards(indices) {
     const rootElement = document.querySelector('#cards')
     rootElement.innerHTML = indices.map(index => this.getCardElement(index)).join('');
@@ -91,7 +91,7 @@ const model = {
   revealedCards: [],
   isRevealedCardsMatched() {
     return this.revealedCards[0].dataset.index % 13 === this.revealedCards[1].dataset.index % 13
-  },
+  }
 }
 const controller = {
   currentState: GAME_STATE.FirstCardAwaits,
