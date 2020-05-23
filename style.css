@@ -1,3 +1,33 @@
+/* global setting */
+#header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 85%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+#header .title {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  max-height: 4em;
+}
+#header .title img {
+  max-height: 4em;
+}
+#header .title h2 {
+  padding-left: 0.5em;
+}
+#header .scoreboard .score {
+  margin: 0;
+  color: #6c90ac;
+}
+#header .scoreboard .tried {
+  margin: 0;
+}
+
 #cards {
   display: flex;
   flex-wrap: wrap;
@@ -10,8 +40,8 @@
   /* 容器(牌桌)內各卡片排版 */
   flex: 7% 1 1;  /* flex-basis, flex-grow, flex-shrink. 0, 1 表示分配權重 */
   height: 8vw;  /* 佔視窗寬度 8% */
-  border: 2px solid #e0e0e0;
-  margin: 2px;
+  border: 0.2vw solid #e0e0e0;
+  margin: 0.1vw;
 
   /* 單張卡片內部元素排版 */
   display: flex;
@@ -23,8 +53,8 @@
   align-self: center;
 }
 .card p {
-  margin: 3px;
-  font-size: 10px;
+  margin: 0.3vw;
+  font-size: 2vw;
 }
 .card p:last-child {
   transform: rotate(180deg);
@@ -33,34 +63,9 @@
   background: url('https://assets-lighthouse.alphacamp.co/uploads/image/file/9222/ExportedContentImage_00.png');
   background-size: cover;
 }
+
 .paired {
   background-color: #dae0e3;
-}
-
-#header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 85%;
-  margin: 0 auto;
-}
-#header .title {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-}
-#header .title img {
-  max-width: 3em;
-}
-#header .title h2 {
-  padding-left: 0.5em;
-}
-#header .score {
-  margin: 0;
-  color: #6c90ac;
-}
-#header .tried {
-  margin-top: 0;
 }
 
 .wrong {
@@ -73,7 +78,7 @@
     border: 2px solid #ffd54f;
   }
 }
-/* 以下看不懂 */
+
 .completed {
   position: absolute;
   z-index: 999;
@@ -92,4 +97,31 @@
   font-size: 3em;
   font-weight: 700;
   color: #758d9a;
+}
+
+/* RWD setting */
+@media screen and (min-width: 480px) {
+  #header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  #header .title {
+    justify-content: flex-start;
+    width: 62%;
+  }
+  .card {
+    border: 0.3vw solid #e0e0e0;
+    margin: 0.2vw 0.25vw;
+  }
+}
+@media screen and (min-width: 960px) {
+  .card {
+    border: 2px solid #e0e0e0;
+    margin: 2px;
+  }
+  .card p {
+    margin: 0.4vw;
+    font-size: 18px;
+  }  
 }
